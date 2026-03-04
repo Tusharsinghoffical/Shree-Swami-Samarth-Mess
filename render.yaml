@@ -2,7 +2,7 @@ services:
   - type: web
     name: shree-swami-samarth-mess
     env: static
-    buildCommand: npm install; npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
       - key: NODE_VERSION
@@ -11,13 +11,3 @@ services:
         sync: false
       - key: APP_URL
         sync: false
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: SAMEORIGIN
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
-      - path: /*
-        name: Referrer-Policy
-        value: strict-origin-when-cross-origin

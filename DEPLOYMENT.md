@@ -25,56 +25,53 @@ git remote add origin https://github.com/yourusername/shree-swami-samarth-mess.g
 git push -u origin main
 ```
 
-### Step 2: Create Render Blueprint
+### Step 2: Create Static Site on Render
 
 1. **Go to Render Dashboard**
    - Visit: https://dashboard.render.com
    - Sign in with your GitHub/GitLab account
 
-2. **Create New Blueprint**
+2. **Create New Static Site**
    - Click **"New +"** button
-   - Select **"Blueprint"**
+   - Select **"Static Site"** (NOT Web Service)
    - Choose **"Connect a repository"**
 
 3. **Connect Your Repository**
    - Select your repository from the list
-   - Render will automatically detect the `render.yaml` file
-   - Click **"Apply"**
+   - Configure the following settings:
+     - **Name**: `shree-swami-samarth-mess` (or your choice)
+     - **Branch**: `main` or `master`
+     - **Build Command**: `npm install && npm run build`
+     - **Publish Directory**: `dist`
+   - Click **"Advanced"** and add environment variables:
+     - `GEMINI_API_KEY`: Your Gemini API key
+   - Click **"Create static site"**
 
-### Step 3: Configure Environment Variables
+### Step 3: Deploy & Wait for Build
 
-After connecting the repository, you need to set these environment variables:
-
-1. In the Render dashboard, go to your service
-2. Click on **"Environment"** tab
-3. Add the following variables:
-
-   ```
-   GEMINI_API_KEY = your_actual_gemini_api_key_here
-   APP_URL = https://your-app-name.onrender.com (will be auto-generated after first deploy)
-   ```
-
-4. Click **"Save Changes"**
-
-### Step 4: Deploy
-
-1. **Automatic Deployment**
-   - Render will automatically start building and deploying your app
+1. **Automatic Build**
+   - Render will automatically start building your static site
    - You can see the build logs in real-time
+   - Build process:
+     - Installs Node.js dependencies (`npm install`)
+     - Builds the Vite app (`npm run build`)
+     - Publishes the `dist` folder
 
-2. **Manual Redeploy** (if needed)
-   - Go to your service dashboard
-   - Click **"Manual Deploy"**
-   - Select the branch and click **"Deploy"**
+2. **Wait for Completion**
+   - Build takes 2-5 minutes typically
+   - Status will show "Live" when ready
+   - You'll get a live URL like: `https://shree-swami-samarth-mess.onrender.com`
 
 ---
 
 ## 🔧 Configuration Details
 
-### Build Settings
-- **Build Command**: `npm install; npm run build`
+### Static Site Settings
+- **Type**: Static Site (NOT Web Service)
+- **Build Command**: `npm install && npm run build`
 - **Publish Directory**: `./dist`
 - **Node Version**: 20
+- **Environment**: Production
 
 ### Auto-Deploy
 - Every push to the connected branch will trigger automatic deployment
